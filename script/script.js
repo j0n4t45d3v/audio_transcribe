@@ -1,3 +1,14 @@
+const div = document.createElement('div');
+  div.style = `
+    width: 60%;
+    height: 400px;
+    border-radius: 5px;
+    border: 1px solid #b6b6b6;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 20px;
+  `
+
 function transcribe() {
   const audioFile = document.getElementsByClassName('arquivo')[0].files[0];
   const loading = document.getElementById('loading');
@@ -9,6 +20,9 @@ function transcribe() {
   formData.append('audio', audioFile);
   formData.append('entry_type', ext);
 
+
+
+
   fetch('http://127.0.0.1:5000/transcribe', {
     method: 'POST',
     body: formData,
@@ -18,7 +32,8 @@ function transcribe() {
       loading.style.display = 'none';
       const p = document.createElement('p');
       p.innerHTML = data.audio_transcribe;
-      document.body.appendChild(p);
+      div.appendChild(p);
+      document.body.appendChild(div);
     })
     .catch((error) => {
       console.error(error);
@@ -30,8 +45,6 @@ function convertAudio(){
   const loading = document.getElementById('loading');
   const ext = audioFile.name.split('.').pop();
   const output = document.getElementsByClassName('output-convert').value;
-
-  loading.style.display = 'block';
 
   const formData = new FormData();
   formData.append('audio', audioFile);
@@ -53,6 +66,7 @@ function optionConvert(){
   btn[0].style.display = 'none';
   btn[1].style.display = 'block';
   select[0].style.display = 'block';
+  document.body.removeChild(div);
 }
 
 function optionTranscribe(){
