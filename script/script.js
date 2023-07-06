@@ -1,14 +1,14 @@
 const div = document.createElement('div');
-  div.style = `
+div.style = `
     width: 60%;
     border-radius: 5px;
     border: 1px solid #b6b6b6;
     margin: 0 auto;
     margin-top: 50px;
     padding: 20px;
-  `
+  `;
 
-const uri = 'https://audio-transcribe-d885.onrender.com'
+const uri = 'https://audio-transcribe-d885.onrender.com';
 
 function transcribe() {
   const audioFile = document.getElementsByClassName('arquivo')[0].files[0];
@@ -21,10 +21,7 @@ function transcribe() {
   formData.append('audio', audioFile);
   formData.append('entry_type', ext);
 
-
-
-
-  fetch(uri+'/transcribe', {
+  fetch(uri + '/transcribe', {
     method: 'POST',
     body: formData,
   })
@@ -41,26 +38,33 @@ function transcribe() {
     });
 }
 
-function convertAudio(){
+function convertAudio() {
   const audioFile = document.getElementsByClassName('arquivo')[0].files[0];
-  const loading = document.getElementById('loading');
   const ext = audioFile.name.split('.').pop();
-  const output = document.getElementsByClassName('output-convert').value;
+  const output = document.getElementsByClassName('output-convert')[0].value;
 
   const formData = new FormData();
   formData.append('audio', audioFile);
   formData.append('entry_type', ext);
-  formData.append('output_type', ext);
+  formData.append('output_type', output);
 
   console.log(output);
 
-  // fetch('http://127.0.0.1:5000/convert', {
-  //   method: 'POST',
-  //   body: formData,
-  // })
+  fetch(uri + '/convert', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => response.blob())
+    .then((blob) => {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'converted_audio.mp3'; // Nome do arquivo de destino
+      link.click();
+    });
 }
 
-function optionConvert(){
+function optionConvert() {
   const btn = document.getElementsByClassName('btn');
   const select = document.getElementsByClassName('container-output');
 
@@ -70,12 +74,11 @@ function optionConvert(){
   document.body.removeChild(div);
 }
 
-function optionTranscribe(){
+function optionTranscribe() {
   const btn = document.getElementsByClassName('btn');
   const select = document.getElementsByClassName('container-output');
 
   select[0].style.display = 'none';
   btn[0].style.display = 'block';
   btn[1].style.display = 'none';
-
 }
