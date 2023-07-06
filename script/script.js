@@ -1,7 +1,6 @@
 const div = document.createElement('div');
   div.style = `
     width: 60%;
-    height: 400px;
     border-radius: 5px;
     border: 1px solid #b6b6b6;
     margin: 0 auto;
