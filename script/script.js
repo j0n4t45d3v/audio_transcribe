@@ -8,6 +8,8 @@ const div = document.createElement('div');
     padding: 20px;
   `
 
+const uri = 'https://audio-transcribe-d885.onrender.com'
+
 function transcribe() {
   const audioFile = document.getElementsByClassName('arquivo')[0].files[0];
   const loading = document.getElementById('loading');
@@ -22,7 +24,7 @@ function transcribe() {
 
 
 
-  fetch('http://127.0.0.1:5000/transcribe', {
+  fetch(uri+'/transcribe', {
     method: 'POST',
     body: formData,
   })
