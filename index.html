@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AudioTranscribe</title>
-</head>
-<body>
-    <input class="arquivo" type="file" />
-    <button class="btn" onclick="transcribe()">Transcrever</button>
-    <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>AudioTranscribe</title>
+  </head>
+  <body>
+    <div class="header-options">
+      <button class="option-header" onclick="optionConvert()">convert audio</button>
+      <button class="option-header" onclick="optionTranscribe()">transcribe</button>
+    </div>
+    <div class="main-container">
+      <div class="input_container">
+        <input class="arquivo" type="file" />
+      </div>
+      <div class="container-output">
+        <select class="output-convert">
+          <option>Escolha um tipo para converter</option>
+          <option value="wav">WAV</option>
+          <option value="mp3">MP3</option>
+        </select>
+      </div>
+      <div>
+        <button class="btn" onclick="transcribe()">Transcrever</button>
+        <button class="btn" onclick="convertAudio()">Converter</button>
+      </div>
+      <span id="loading">Transcrevendo...</span>
+    </div>
+    <script src="script/script.js"></script>
+  </body>
 </html>
